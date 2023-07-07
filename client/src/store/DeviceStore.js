@@ -25,6 +25,7 @@ export default class DeviceStore {
 
         this._selectedType = {};
         this._selectedBrand = {};
+        
 
         makeAutoObservable(this)
     }
