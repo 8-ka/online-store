@@ -14,8 +14,18 @@ const Shop = observer(() => {
   useEffect(() => {
     fetchTypes().then(data => device.setTypes(data));
     fetchBrands().then(data => device.setBrands(data));
-    fetchDevices().then(data => device.setDevices(data.rows));
+    fetchDevices().then(data => {
+      device.setDevices(data.rows);
+      device.setTotalCount(data.count);
+    }); 
   }, []);
+
+  useEffect(() => {
+    fetchDevices(device.SelectedType.id, device.SelectedBrand.id, device.page, 2).then(data => {
+      device.setDevices(data.rows);
+      device.setTotalCount(data.count);
+    });
+  }, [device.SelectedType, device.SelectedBrand, device.page])
 
   return (
     <Container>
