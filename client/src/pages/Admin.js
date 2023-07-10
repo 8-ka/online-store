@@ -8,6 +8,7 @@ const Admin = () => {
   const [showTypeModal, setShowTypeModal] = useState(false);
   const [showBrandModal, setShowBrandModal] = useState(false);
   const [showDeviceModal, setShowDeviceModal] = useState(false);
+  
   return (
     <Container>
       <Button

@@ -11,8 +11,8 @@ export default class UserStore {
         this._isAuth = bool;
     }
 
-    setUser(bool) {
-        this._user = bool;
+    setUser(user) {
+        this._user = user;
     }
 
     get isAuth() {

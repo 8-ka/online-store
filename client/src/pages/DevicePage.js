@@ -1,25 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 
 import starIcon from '../assets/star-icon.svg';
+import { useParams } from 'react-router-dom';
+import { fetchOneDevice } from '../http/deviceAPI';
 
 const DevicePage = () => {
-  const device = { id: 1, name: "Iphone 12 Pro", price: 25000, rating: 5, img: '' };
-  const description = [
-    { id: 1, title: 'RAM', description: '5GB' },
-    { id: 2, title: 'Camera', description: '12Mpx' },
-    { id: 3, title: 'CPU', description: 'Intel 7i' },
-    { id: 4, title: 'Core quantity', description: '4' },
-    { id: 5, title: 'Battery', description: '4000' },
-  ];
+  const [device, setDevice] = useState({ info: [] });
+  const { id } = useParams(); 
+
+  useEffect(() => {
+    fetchOneDevice(id).then(data => setDevice(data));
+  }, [])
 
   return (
     <Container className='mt-2'>
       <Row>
-        <Col md={4}>
-          <Image src={device.img} width={300} height={300} />
-        </Col>
         <Col md={4} className='d-flex'>
+          <Image src={process.env.REACT_APP_API_URL + '/' + device.img} width={300} height={300} />
+        </Col>
+        <Col md={4} className='d-flex flex-column align-items-center justify-content-center'>
           <Row className='d-flex flex-column align-items-center'>
             <h2>{device.name}</h2>
             <div
@@ -39,7 +39,7 @@ const DevicePage = () => {
       </Row>
       <Row className='mt-3'>
       <h2>Features</h2>
-        {description.map(info =>
+        {device.info.map(info =>
           <Row key={info.id} style={{ background: info.id % 2 !== 0 && 'lightgray', padding: 10 }}>
             {info.title}: {info.description}
           </Row>
